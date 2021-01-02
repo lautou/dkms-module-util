@@ -25,8 +25,8 @@ if [[ -z $KEY_DIR ]];then
     logger -s -t $LOGGER_TAG "WARN: KEY_DIR is not defined in $SIGN_CONFIG, no signing"
     exit 0
 fi
-MODULE_NAME=$(sed -n -e '/PACKAGE_NAME/ s/.*=//p' dkms.conf)
-: ${PACKAGE_VERSION:=$(sed -n -e '/PACKAGE_VERSION/ s/.*=//p' dkms.conf)}
+MODULE_NAME=$(sed -n -e '/PACKAGE_NAME=/ s/.*=//p' dkms.conf)
+: ${PACKAGE_VERSION:=$(sed -n -e '/PACKAGE_VERSION=/ s/.*=//p' dkms.conf)}
 : ${KERNEL_RELEASE:=$(uname -r)}
 : ${KO_FILE:=/var/lib/dkms/$MODULE_NAME/$PACKAGE_VERSION/$KERNEL_RELEASE/x86_64/module/$MODULE_NAME.ko}
 xz -d $KO_FILE.xz
